@@ -19,6 +19,15 @@ wasm-bindgen = "0.2.84"
 # code size when deploying.
 console_error_panic_hook = { version = "0.1.7", optional = true }
 
+parquet-wasm = { git = "https://github.com/kylebarron/parquet-wasm", rev = "a266036", default-features = false, features = [
+    "arrow2",
+    "reader",
+] }
+arrow2 = { version = "0.17" }
+geoarrow = { git = "https://github.com/kylebarron/geoarrow-rs", package = "geoarrow2", version = "0.0.1" }
+serde = "1.0"
+serde_json = "1.0"
+
 [dev-dependencies]
 wasm-bindgen-test = "0.3.34"
 
