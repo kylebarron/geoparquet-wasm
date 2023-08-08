@@ -15,8 +15,8 @@ pub struct GeoParquetColumnMetadata {
     pub encoding: String,
     pub geometry_types: Vec<String>,
     pub crs: Option<Value>,
-    pub orientation: String,
-    pub edges: String,
-    pub bbox: Vec<f64>,
-    pub epoch: i32,
+    pub orientation: Option<String>,
+    pub edges: Option<String>,
+    pub bbox: Option<Vec<f64>>,
+    pub epoch: Option<i32>,
 }
