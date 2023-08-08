@@ -588,7 +588,7 @@ dependencies = [
 [[package]]
 name = "geoarrow2"
 version = "0.0.1"
-source = "git+https://github.com/kylebarron/geoarrow-rs#9cbb8a2a140f7680fbc67245b2496632a5a18143"
+source = "git+https://github.com/kylebarron/geoarrow-rs?rev=aa7180f34a9dc750a5b095c5d9e1cf3b6bc5262b#aa7180f34a9dc750a5b095c5d9e1cf3b6bc5262b"
 dependencies = [
  "anyhow",
  "arrow2",
@@ -1009,7 +1009,7 @@ dependencies = [
 [[package]]
 name = "parquet-wasm"
 version = "0.4.0-beta.5"
-source = "git+https://github.com/kylebarron/parquet-wasm?rev=a266036#a266036deef6a8742143d3b3429ef0358a0fa358"
+source = "git+https://github.com/kylebarron/parquet-wasm?rev=1220358#1220358076439c9fce52b560108a96a016690b90"
 dependencies = [
  "arrow2",
  "getrandom",
