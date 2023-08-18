@@ -19,11 +19,12 @@ wasm-bindgen = "0.2.84"
 # code size when deploying.
 console_error_panic_hook = { version = "0.1.7", optional = true }
 
-parquet-wasm = { git = "https://github.com/kylebarron/parquet-wasm", rev = "1220358", default-features = false, features = [
+parquet-wasm = { git = "https://github.com/kylebarron/parquet-wasm", rev = "b0a360de47c5d6984bade5dadeb44384619affb0", default-features = false, features = [
     "arrow2",
     "reader",
     "all_compressions",
 ] }
+arrow-wasm = { git = "https://github.com/kylebarron/arrow-wasm", rev = "3c7e408978b947db04aa614f66b0b873b09583a8" }
 arrow2 = { version = "0.17" }
 geoarrow = { git = "https://github.com/kylebarron/geoarrow-rs", rev = "aa7180f34a9dc750a5b095c5d9e1cf3b6bc5262b", package = "geoarrow2", version = "0.0.1" }
 serde = "1.0"
