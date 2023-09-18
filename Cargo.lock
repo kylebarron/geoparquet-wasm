@@ -197,6 +197,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "arrow2"
+version = "0.18.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "963fef509b757bcbbf9e5ffa23bcb345614d99f4f6f531f97417b27b8604d389"
+dependencies = [
+ "ahash",
+ "bytemuck",
+ "chrono",
+ "dyn-clone",
+ "either",
+ "ethnum",
+ "foreign_vec",
+ "getrandom",
+ "hash_hasher",
+ "hashbrown",
+ "num-traits",
+ "rustc_version",
+ "simdutf8",
+]
+
+[[package]]
 name = "async-stream"
 version = "0.3.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -591,7 +612,7 @@ version = "0.0.1"
 source = "git+https://github.com/kylebarron/geoarrow-rs?rev=aa7180f34a9dc750a5b095c5d9e1cf3b6bc5262b#aa7180f34a9dc750a5b095c5d9e1cf3b6bc5262b"
 dependencies = [
  "anyhow",
- "arrow2",
+ "arrow2 0.17.4",
  "bumpalo",
  "byteorder",
  "geo",
@@ -613,7 +634,7 @@ dependencies = [
 name = "geoparquet-wasm"
 version = "0.1.0"
 dependencies = [
- "arrow2",
+ "arrow2 0.18.0",
  "console_error_panic_hook",
  "geoarrow2",
  "parquet-wasm",
@@ -667,6 +688,9 @@ name = "hashbrown"
 version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2c6201b9ff9fd90a5a3bac2e56a830d0caa509576f0e503818ee82c181b3437a"
+dependencies = [
+ "ahash",
+]
 
 [[package]]
 name = "heapless"
@@ -1011,7 +1035,7 @@ name = "parquet-wasm"
 version = "0.4.0-beta.5"
 source = "git+https://github.com/kylebarron/parquet-wasm?rev=1220358#1220358076439c9fce52b560108a96a016690b90"
 dependencies = [
- "arrow2",
+ "arrow2 0.17.4",
  "getrandom",
  "js-sys",
  "parquet",
