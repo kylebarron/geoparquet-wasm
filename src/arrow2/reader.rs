@@ -4,10 +4,11 @@ use arrow2::chunk::Chunk;
 use arrow2::datatypes::Schema;
 use arrow2::io::parquet::read::infer_schema;
 use arrow2::io::parquet::write::FileMetaData;
+use arrow_wasm::arrow2::Table;
 use geoarrow::array::{GeometryArray, MultiPolygonArray, WKBArray};
 use geoarrow::GeometryArrayTrait;
 use parquet_wasm::arrow2::error::Result;
-use parquet_wasm::arrow2::reader::{read_parquet, read_parquet_metadata};
+use parquet_wasm::arrow2::reader::{read_metadata, read_parquet};
 
 enum GeometryType {
     Point,
@@ -99,8 +100,8 @@ fn infer_geometry_type(meta: GeoParquetMetadata) -> GeometryType {
     todo!()
 }
 
-pub fn read_geoparquet(parquet_file: &[u8]) -> Result<Vec<u8>> {
-    let metadata = read_parquet_metadata(parquet_file)?;
+pub fn read_geoparquet(parquet_file: &[u8]) -> Result<Table> {
+    let metadata = read_metadata(parquet_file)?;
     let mut arrow_schema = infer_schema(&metadata)?;
     let geo_metadata = parse_geoparquet_metadata(&metadata);
     let geometry_column_index = arrow_schema
@@ -117,15 +118,39 @@ pub fn read_geoparquet(parquet_file: &[u8]) -> Result<Vec<u8>> {
 
     let inferred_geometry_type = infer_geometry_type(geo_metadata);
 
-    read_parquet(parquet_file, |schema, chunk, should_return_schema| {
-        parse_wkb_to_geoarrow(
-            schema,
-            chunk,
-            should_return_schema,
-            geometry_column_index,
-            &inferred_geometry_type,
-        )
-    })
+    let table = read_parquet(parquet_file)?;
+    let (schema, chunks) = table.into_inner();
+
+    let (new_schema, new_chunks) = {
+        let mut new_schema: Option<Schema> = None;
+        let mut new_chunks = Vec::with_capacity(chunks.len());
+        for chunk in chunks {
+            if new_schema.is_none() {
+                let (returned_schema, returned_chunk) = parse_wkb_to_geoarrow(
+                    &schema,
+                    chunk,
+                    true,
+                    geometry_column_index,
+                    &inferred_geometry_type,
+                );
+                new_schema = returned_schema;
+                new_chunks.push(returned_chunk)
+            } else {
+                let (_, returned_chunk) = parse_wkb_to_geoarrow(
+                    &schema,
+                    chunk,
+                    false,
+                    geometry_column_index,
+                    &inferred_geometry_type,
+                );
+                new_chunks.push(returned_chunk)
+            }
+        }
+
+        (new_schema.unwrap(), new_chunks)
+    };
+
+    Ok(Table::new(new_schema, new_chunks))
 }
 
 #[cfg(test)]
