@@ -171,6 +171,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "arrow-wasm"
+version = "0.1.0"
+source = "git+https://github.com/kylebarron/arrow-wasm?rev=3c7e408978b947db04aa614f66b0b873b09583a8#3c7e408978b947db04aa614f66b0b873b09583a8"
+dependencies = [
+ "arrow2",
+ "getrandom",
+ "js-sys",
+ "thiserror",
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
 name = "arrow2"
 version = "0.17.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -613,6 +626,7 @@ dependencies = [
 name = "geoparquet-wasm"
 version = "0.1.0"
 dependencies = [
+ "arrow-wasm",
  "arrow2",
  "console_error_panic_hook",
  "geoarrow2",
@@ -1008,9 +1022,10 @@ dependencies = [
 
 [[package]]
 name = "parquet-wasm"
-version = "0.4.0-beta.5"
-source = "git+https://github.com/kylebarron/parquet-wasm?rev=1220358#1220358076439c9fce52b560108a96a016690b90"
+version = "0.4.0"
+source = "git+https://github.com/kylebarron/parquet-wasm?rev=b0a360de47c5d6984bade5dadeb44384619affb0#b0a360de47c5d6984bade5dadeb44384619affb0"
 dependencies = [
+ "arrow-wasm",
  "arrow2",
  "getrandom",
  "js-sys",

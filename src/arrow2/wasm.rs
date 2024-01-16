@@ -1,3 +1,4 @@
+use arrow_wasm::arrow2::Table;
 use parquet_wasm::arrow2::error::WasmResult;
 use parquet_wasm::utils::assert_parquet_file_not_empty;
 use wasm_bindgen::prelude::*;
@@ -21,7 +22,7 @@ use wasm_bindgen::prelude::*;
 /// @param parquet_file Uint8Array containing Parquet data
 /// @returns Uint8Array containing Arrow data in [IPC Stream format](https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format). To parse this into an Arrow table, pass to `tableFromIPC` in the Arrow JS bindings.
 #[wasm_bindgen(js_name = readGeoParquet)]
-pub fn read_geoparquet(parquet_file: &[u8]) -> WasmResult<Vec<u8>> {
+pub fn read_geoparquet(parquet_file: &[u8]) -> WasmResult<Table> {
     assert_parquet_file_not_empty(parquet_file)?;
     Ok(crate::arrow2::reader::read_geoparquet(parquet_file)?)
 }
